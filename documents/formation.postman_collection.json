@@ -1,0 +1,288 @@
+{
+  "info": {
+    "_postman_id": "bef1f7a5-332b-4db3-bdb0-89ff0dd136ee",
+    "name": "Poc",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Recherche de client multi-critères",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/customers/search/multi-criterias?criterias={\"codeFichierPartenaire\":\"009\", \"codePostal\": \"34130\"}&pagination={\"page\": 1, \"rowsPerPage\": 25, \"sortBy\": \"prenom\", \"descending\": true}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "customers",
+            "search",
+            "multi-criterias"
+          ],
+          "query": [
+            {
+              "key": "criterias",
+              "value": "{\"codeFichierPartenaire\":\"009\", \"codePostal\": \"34130\"}"
+            },
+            {
+              "key": "pagination",
+              "value": "{\"page\": 1, \"rowsPerPage\": 25, \"sortBy\": \"prenom\", \"descending\": true}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Recherche client par chrono",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "criterias?: T\n    pagination : {\n        sortBy?: string\n        descending?: boolean\n        page: number,\n        rowsPerPage: number\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/customers/search/one?codeFichierPartenaire=021&chronoClient=47285559",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "customers",
+            "search",
+            "one"
+          ],
+          "query": [
+            {
+              "key": "codeFichierPartenaire",
+              "value": "021"
+            },
+            {
+              "key": "chronoClient",
+              "value": "47285559"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Toutes les offres de référence d'une campagne",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "criterias?: T\n    pagination : {\n        sortBy?: string\n        descending?: boolean\n        page: number,\n        rowsPerPage: number\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/refs/campagne/{{cd-camp}}/offres-ref",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "refs",
+            "campagne",
+            "{{cd-camp}}",
+            "offres-ref"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Une offre de référence d'une campagne",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "criterias?: T\n    pagination : {\n        sortBy?: string\n        descending?: boolean\n        page: number,\n        rowsPerPage: number\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/refs/campagne/{{cd-camp}}/offres-ref/{{cd-offreref}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "refs",
+            "campagne",
+            "{{cd-camp}}",
+            "offres-ref",
+            "{{cd-offreref}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Toutes les offres de référence d'une campagne ayant un produit donné",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "criterias?: T\n    pagination : {\n        sortBy?: string\n        descending?: boolean\n        page: number,\n        rowsPerPage: number\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/refs/campagne/{{cd-camp}}/offres-ref?codeProduit={{cd-prod}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "refs",
+            "campagne",
+            "{{cd-camp}}",
+            "offres-ref"
+          ],
+          "query": [
+            {
+              "key": "codeProduit",
+              "value": "{{cd-prod}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Information DB Pool",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "criterias?: T\n    pagination : {\n        sortBy?: string\n        descending?: boolean\n        page: number,\n        rowsPerPage: number\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/monitoring/db-pool-stats",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "monitoring",
+            "db-pool-stats"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Information santé services",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "criterias?: T\n    pagination : {\n        sortBy?: string\n        descending?: boolean\n        page: number,\n        rowsPerPage: number\n    }"
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/monitoring/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "monitoring",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "port",
+      "value": "3000\n",
+      "type": "string"
+    },
+    {
+      "key": "cd-camp",
+      "value": "11",
+      "type": "string"
+    },
+    {
+      "key": "cd-prod",
+      "value": "15246",
+      "type": "string"
+    },
+    {
+      "key": "cd-offreref",
+      "value": "14734",
+      "type": "string"
+    }
+  ]
+}

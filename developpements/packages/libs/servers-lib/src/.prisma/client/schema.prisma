@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["filterJson"]
+  binaryTargets = ["native", "linux-musl"]
+  output   = "../src/.prisma/client"
+}
+
+model Partenaire {
+    code  String @db.VarChar @id
+    libelle String @db.VarChar
+
+    @@map(name: "ref_partenaires")
+}
+
+model Produit {
+
+    code String @db.VarChar @id
+    libelle String @db.VarChar
+
+    offres Offre[] @relation("offre_produits")
+
+    @@map(name: "ref_produits")
+}
+
+model Offre {
+
+    code String @db.VarChar @id
+    libelle String @db.VarChar
+
+    codeProduit  String @db.VarChar @map(name: "code_produit")
+    produit   Produit @relation("offre_produits", fields: [codeProduit], references: [code], onDelete: Cascade, onUpdate: Restrict)
+
+    dateDerniereModification DateTime? @db.Timestamptz(0) @map(name: "date_derniere_modification")
+
+    @@map(name: "ref_offres")
+    @@index(codeProduit)
+}

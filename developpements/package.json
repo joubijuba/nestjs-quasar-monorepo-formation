@@ -1,0 +1,17 @@
+{
+  "name": "formation",
+  "packageManager": "yarn@3.1.1",
+  "private": true,
+  "scripts": {
+    "clearall": "rm -R node_modules packages/server/dist packages/server/node_modules packages/web-client/node_modules packages/web-client/.quasar packages/libs/shared-lib/dist .yarn/cache .yarn/install-state.gz",
+    "shared-lib:dev": "yarn workspace @formation/shared-lib shared-lib:esbuild",
+    "servers-lib:dev": "yarn workspace @formation/servers-lib servers-lib:build-dev",
+    "server:dev": "yarn workspace server start:dev",
+    "web-client:dev": "yarn workspace web-client web-client:start-dev",
+    "server:build": "yarn workspace server build",
+    "servers-lib:build": "yarn workspace @formation/servers-lib servers-lib:build"
+  },
+  "workspaces": [
+    "packages/**"
+  ]
+}
