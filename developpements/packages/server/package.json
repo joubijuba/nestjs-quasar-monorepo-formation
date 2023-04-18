@@ -34,6 +34,7 @@
     "@nestjs/core": "^9.4.0",
     "@nestjs/microservices": "^9.4.0",
     "@nestjs/platform-express": "^9.4.0",
+    "@nestjs/swagger": "^6.3.0",
     "@nestjs/terminus": "^9.2.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",

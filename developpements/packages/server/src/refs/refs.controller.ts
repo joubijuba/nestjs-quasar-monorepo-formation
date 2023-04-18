@@ -3,15 +3,20 @@ import { AbstractController } from '@formation/servers-lib/dist/utils'
 import {
   CodeLabelResultDto,
   OffreReferenceResultDto,
-  WorkDone
+  WorkDone,
+  ProductDto
 } from '@formation/shared-lib'
 import {
   Controller,
   Get,
   Param,
-  Query
+  Put,
+  Query,
+  Body,
+  Post,
 } from '@nestjs/common'
 import { RefsService } from './refs.service'
+import { ApiBody } from '@nestjs/swagger'
 
 @Controller('refs')
 export class RefsController extends AbstractController {
@@ -46,4 +51,33 @@ export class RefsController extends AbstractController {
     return this.refsService.searchOffreReference(parseInt(codeCampagne, 10), null, codeProduit)
   }
 
+  @Get("/produits")
+  async getProduit () : Promise<WorkDone<ProductDto[]>> {
+    return this.refsService.getProduits()
+  }
+
+  @Get("/produits/:codeProduit")
+  /// @Param decorator is used to retrieve :codeProduit, it's any string
+  // that is inserted after "/""
+  async getOneProductByCode (@Param("codeProduit") codeProduit : string) :
+    Promise<WorkDone<ProductDto>> {
+      return this.refsService.getOneProduct(codeProduit)
+  }
+
+  @Post("produits") @ApiBody({})
+  /// We will need to use the middleware Body in order to intercept
+  // the body of the Put request
+  async createProduct (@Body() product : ProductDto) : 
+    Promise<WorkDone<string>>{
+      return this.refsService.createProduct(product)
+    }
+
+  @Put("produits/:code") 
+  @ApiBody({})
+  async updateProduct(
+    @Param("code") code : string,
+    @Body() product : ProductDto) : 
+    Promise<WorkDone<String>> {
+      return this.refsService.updateProduct(code, product)
+    }
 }
