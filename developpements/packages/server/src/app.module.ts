@@ -7,7 +7,7 @@ import { AppService } from './app.service'
 import common from './common/config/common'
 import { CustomersModule } from './customers/customers.module'
 import { HealthController } from './health/health.controller'
-import { RefsModule } from './refs/refs.module'
+import { RefsModule } from './products/products.module'
 
 @Module({
   imports: [

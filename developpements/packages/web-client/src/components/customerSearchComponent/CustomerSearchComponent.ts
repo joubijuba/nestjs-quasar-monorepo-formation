@@ -74,6 +74,7 @@ export default defineComponent({
       } else {
         allFichierPartenaires = []
       }
+      console.log(wd.data)
     })
 
     const searchAllResponse = ref<IPaginatedListDto<CustomerSearchResultDto>>({ list: [], rowsNumber: 0 })

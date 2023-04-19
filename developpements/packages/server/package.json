@@ -46,6 +46,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^4.4.1",
     "rxjs": "^7.8.0",
+    "swagger-ui-express": "^4.6.2",
     "winston": "^3.8.2",
     "winston-transport": "^4.5.0"
   },
@@ -58,6 +59,7 @@
     "@types/lodash": "^4.14.192",
     "@types/node": "^18.15.11",
     "@types/supertest": "^2.0.12",
+    "@types/swagger-ui-express": "^4",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "eslint": "^8.37.0",

@@ -10,16 +10,17 @@ import {
   ProductDto,
   IPaginatedListDto,
   ISearchDto,
+  SearchProductsDto,
 } from '@formation/shared-lib';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class RefsService {
+export class productsService {
   constructor(
     private readonly logger: LoggerService,
     private readonly prismaService: PrismaService,
   ) {
-    this.logger.info('RefsService created');
+    this.logger.info('productsService created');
   }
 
   async getAllFichParts(): Promise<WorkDone<CodeLabelResultDto[]>> {
@@ -41,33 +42,45 @@ export class RefsService {
 
   /// ::: added with fred ::: ///
 
-  async getProduits(): Promise<WorkDone<ProductDto[]>> {
-    // we put a small filter here just to not have all the products being
-    // rendered
-    const filter = 'lait';
-    const dbProducts = await this.prismaService.produit.findMany({
-      where: {
-        libelle: {
-          contains: filter,
-          mode: 'insensitive',
+  async getProduits(filters : SearchProductsDto): Promise<WorkDone<ProductDto[]>> {
+    try {
+      const dbProducts = await this.prismaService.produit.findMany({
+        where: {
+          libelle: {
+            contains: filters.libelleContains ? filters.libelleContains : '',
+            mode: 'insensitive',
+          },
         },
-      },
-      orderBy: {
-        libelle: 'asc',
-      },
-    });
-
-    if (!dbProducts) {
-      return WorkDone.buildError(
-        'une erreur est survenue durant la recup des produicts',
-      );
+        orderBy: {
+          code: 'asc',
+        },
+      });
+  
+      if (!dbProducts) {
+        return WorkDone.buildError(
+          'une erreur est survenue durant la recup des produicts',
+        );
+      }
+  
+      if (!filters.numOfItems) {
+        return WorkDone.buildOk(dbProducts);
+      }
+  
+      const productsList = []
+      for (let i = 0 ; i < filters.numOfItems ; i++){
+        productsList.push(dbProducts[i])
+      }
+      return WorkDone.buildOk(productsList)
     }
-    return WorkDone.buildOk(dbProducts);
+    catch (e){
+      /// BAD : 
+      return WorkDone.buildError(JSON.stringify(e))
+    }
   }
 
   /// Find a product using it's code number
   // The function, called in the controller when a GET request is received
-  // from /api/refs/produits/#code, will retrieve #code thanks to @param decorator
+  // from /api/products/produits/#code, will retrieve #code thanks to @param decorator
 
   // All the prisma functions are
   async getOneProduct(productCode: string): Promise<WorkDone<ProductDto>> {
@@ -85,54 +98,51 @@ export class RefsService {
     return WorkDone.buildOk(product);
   }
 
-  async createProduct(product : ProductDto) : Promise<WorkDone<string>> {
-    
+  async createProduct(product: ProductDto): Promise<WorkDone<string>> {
     /// Check if product with same code already exists
 
-    const itExists = await this.getOneProduct(product.code)
+    const itExists = await this.getOneProduct(product.code);
 
-    if (itExists){
-      return WorkDone.buildError("product with same code existing") 
+    if (itExists) {
+      return WorkDone.buildError('product with same code existing');
     }
 
     try {
       await this.prismaService.produit.create({
-        data : product
-      })
-  
-      return WorkDone.buildOk(`added ${product.code}`)
-    }
+        data: product,
+      });
 
-    catch (e){
-      return WorkDone.buildError(JSON.stringify(e))
+      return WorkDone.buildOk(`added ${product.code}`);
+    } catch (e) {
+      return WorkDone.buildError(JSON.stringify(e));
     }
-
   }
 
-  async updateProduct(productCode : string, product : ProductDto) : Promise<WorkDone<string>> {
+  async updateProduct(
+    productCode: string,
+    product: ProductDto,
+  ): Promise<WorkDone<string>> {
     try {
-      
-      if (!(await this.getOneProduct(productCode)).isOk){
-        return WorkDone.buildError("this product doesn't exist")
+      if (!(await this.getOneProduct(productCode)).isOk) {
+        return WorkDone.buildError("this product doesn't exist");
       }
-      
+
       const update = await this.prismaService.produit.update({
-        where : {
-          code : productCode
+        where: {
+          code: productCode,
         },
-        data : {
-          libelle : product.libelle
-        }
-      })
-      if (!update){
-        return WorkDone.buildError("no product updated")
+        data: {
+          libelle: product.libelle,
+        },
+      });
+      if (!update) {
+        return WorkDone.buildError('no product updated');
       }
-      return WorkDone.buildOk("product updated")
-    }
-    /// The issue with this catch is that we make 2 requests above
-    // then we don't know for sure what error we are catching
-    catch (e){
-      this.logger.info(e)
+      return WorkDone.buildOk('product updated');
+    } catch (e) {
+      /// The issue with this catch is that we make 2 requests above
+      // then we don't know for sure what error we are catching
+      this.logger.info(e);
     }
   }
 
@@ -237,5 +247,4 @@ export class RefsService {
       return WorkDone.buildOk({})
     }
   */
-  
 }

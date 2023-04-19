@@ -41,3 +41,8 @@ export interface ProductDto {
   code : string,
   libelle : string
 }
+
+export interface SearchProductsDto {
+  numOfItems?: number,
+  libelleContains?: string
+}
