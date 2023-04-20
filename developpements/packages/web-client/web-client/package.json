@@ -1,0 +1,62 @@
+{
+  "name": "web-client",
+  "version": "0.0.1",
+  "description": "A Quasar Framework app",
+  "productName": "Formation POC Client App",
+  "author": "Frédéric PREVOST <fprevost@iorga.com>",
+  "private": true,
+  "scripts": {
+    "web-client:start-dev": "QENV=development quasar dev",
+    "web-client:build-staging": "QENV=staging quasar build",
+    "web-client:build-production": "QENV=production quasar build",
+    "lint": "eslint --ext .js,.ts,.vue ./",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@formation/shared-lib": "workspace:packages/libs/shared-lib",
+    "@quasar/extras": "^1.16.2",
+    "autoprefixer": "latest",
+    "axios": "^0.26.1",
+    "babel-loader": "^9.1.2",
+    "core-js": "^3.30.0",
+    "dayjs": "^1.11.1",
+    "postcss": "latest",
+    "quasar": "^2.11.10",
+    "retry-axios": "^3.0.0",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/eslint-parser": "^7.21.3",
+    "@quasar/app-webpack": "^3.7.2",
+    "@quasar/quasar-app-extension-qenv": "^1.1.0",
+    "@types/compression-webpack-plugin": "^9.1.1",
+    "@types/lodash": "^4.14.192",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.10.0",
+    "typescript": "^4.9.5",
+    "webpack": "^5.78.0"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": ">= 12.22.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}
